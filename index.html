@@ -1,0 +1,569 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Python Resources</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid="UA-167450141-1"
+                  id="beginpython.github.io"
+                  title="Python Resources"
+                  environment="web"
+                  feedback-link="https://beginpython.github.io">
+    
+      <google-codelab-step label="Introductory Programming using Python" duration="0">
+        
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Files" duration="0">
+        <p><strong>file_read.py</strong></p>
+<ul>
+<li>Open a text file</li>
+<li>Read and print the data from the file</li>
+<li>Close the file</li>
+</ul>
+<pre><code># make sure you have a hello.txt in your current working directory
+# same directory as your python script
+helloFile = open(&#34;hello.txt&#34;)
+content = helloFile.read()
+print(content)
+helloFile.close()
+
+# make sure you have a hello.txt in the specified director
+# same directory as your python script
+helloFile = open(&#34;hello.txt&#34;)
+
+content = helloFile.readlines()
+print(content)
+helloFile.close()
+
+
+</code></pre>
+<p><strong>file_write.py</strong></p>
+<ul>
+<li>To write data to text file</li>
+<li>Take note of the difference between writing (w) and appending (a) data to text file.  </li>
+</ul>
+<pre><code>helloFile = open(&#34;hello.txt&#34;, &#34;w&#34;)
+helloFile.write(&#34;This is also another line\n&#34;)
+helloFile.close()
+
+# reopen to display content
+helloFile = open(&#34;hello.txt&#34;)
+print(helloFile.read())
+helloFile.close()
+ 
+# open the file for adding next text
+helloFile = open(&#34;hello.txt&#34;, &#34;a&#34;)
+helloFile.write(&#34;Hello world again\n&#34;)
+helloFile.close()
+
+# reopen to display content
+helloFile = open(&#34;hello.txt&#34;)
+print(helloFile.read())
+helloFile.close()</code></pre>
+<p><strong>file_copy.py</strong></p>
+<ul>
+<li>To copy and/ or move files to another folder</li>
+<li>Take note that for some of the commands, you will need to pre-create the folders</li>
+</ul>
+<pre><code>import shutil
+
+# copy file, must create folder2 first
+shutil.copy(&#34;folder1/hello.txt&#34;, &#34;folder2&#34;)
+
+# recursively copy an entire directory
+# error if the destination folder already exist
+#shutil.copytree(&#34;folder2&#34;, &#34;folder2_backup&#34;)
+
+# move file, must create folder first
+#shutil.move(&#34;folder2/hello.txt&#34;,&#34;folder2/anotherfolder&#34;)
+
+# move and rename file
+#shutil.move(&#34;folder2/anotherfolder/hello.txt&#34;,&#34;folder2/anotherfolder/newhello.txt&#34;)
+
+</code></pre>
+<p><strong>file_delete.py</strong></p>
+<ul>
+<li>To delete folder and/or files</li>
+<li>This is extremely powerful, but dangerous commands, use them with care. </li>
+</ul>
+<pre><code>import os
+
+# error if file do not exist
+os.unlink(&#34;hello.txt&#34;)
+
+# get current working directory
+print(os.getcwd())
+
+# delete directory (can only delete empty folder)
+os.rmdir(&#34;folder3&#34;)
+
+import shutil
+# delete directory (with content)
+# error if folder is not found
+shutil.rmtree(&#34;folder3&#34;)</code></pre>
+<p><strong>File_trash.py</strong></p>
+<aside class="special"><p>Library required: send2trash</p>
+<ul>
+<li><strong>Installation</strong>: pip install send2trash</li>
+</ul>
+</aside>
+<ul>
+<li>To send file to recycle bin instead of deleting the file directly</li>
+</ul>
+<pre><code>import send2trash
+send2trash.send2trash(&#34;hello.txt&#34;)
+</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Excel" duration="0">
+        <aside class="special"><p>Library required: openpyxl</p>
+<ul>
+<li><strong>Installation</strong>: pip install openpyxl</li>
+<li><strong>Documentation</strong>: <a href="https://openpyxl.readthedocs.io/en/stable/index.html" target="_blank">https://openpyxl.readthedocs.io/en/stable/index.html</a> </li>
+</ul>
+</aside>
+<p><strong>excel_read_bmi.py</strong></p>
+<ul>
+<li>To read excel file</li>
+<li>Take note that the cell A1 is row: 1, column: 1</li>
+</ul>
+<table>
+<tr><td colspan="1" rowspan="1"><p><strong>Input</strong>: data in bmi.xlsx</p>
+</td><td colspan="1" rowspan="1"><p><strong>Output</strong>: Display in Wing IDE</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 222.00px" src="img\ea57345cb271d30.png"></p>
+</td><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 286.00px" src="img\3b688efb8cd6a9c1.png"></p>
+</td></tr>
+</table>
+<pre><code>import openpyxl
+
+workbook = openpyxl.load_workbook(&#34;bmi.xlsx&#34;)
+sheet=workbook[&#34;Sheet1&#34;]
+
+
+max_row = sheet.max_row # get number of rows
+
+#loop through every row
+for i in range(2, max_row + 1):
+    
+    #read cell
+    name = sheet.cell(row=i, column=1).value
+    weight = sheet.cell(row=i, column=2).value
+    height = sheet.cell(row=i, column=3).value
+    
+    print(&#34;name:%s \tweight: %d \theight: %f &#34; % (name, weight, height))
+
+
+&#39;&#39;&#39;
+# hardcoded data for illustration
+name = sheet.cell(row=2, column=1).value
+weight = sheet.cell(row=2, column=2).value
+height = sheet.cell(row=2, column=3).value
+
+print(&#34;name:%s \tweight: %d \theight: %f &#34; % (name, weight, height))
+
+&#39;&#39;&#39;</code></pre>
+<p><strong>excel_update_bmi.py</strong></p>
+<ul>
+<li>To read excel file</li>
+<li>Perform calculation of BMI using the formula: BMI = weight/(height*height)</li>
+<li>Place the calculated BMI value in column 4</li>
+</ul>
+<table>
+<tr><td colspan="1" rowspan="1"><p><strong>Input: </strong>data in bmi.xlsx</p>
+</td><td colspan="1" rowspan="1"><p><strong>Output: </strong>data in bmi_update.xlsx</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 222.00px" src="img\ea57345cb271d30.png"></p>
+</td><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 285.00px" src="img\8560f2fd09eaa04d.png"></p>
+</td></tr>
+</table>
+<pre><code>import openpyxl
+
+workbook = openpyxl.load_workbook(&#34;bmi.xlsx&#34;)
+sheet=workbook[&#34;Sheet1&#34;]
+
+max_row = sheet.max_row # get number of rows
+
+# add a column header for bmi
+sheet.cell(row=1, column=4).value = &#34;bmi&#34;
+ 
+#loop through every row
+for i in range(2, max_row + 1):
+    
+    #read cell
+    name = sheet.cell(row=i, column=1).value
+    weight = sheet.cell(row=i, column=2).value
+    height = sheet.cell(row=i, column=3).value
+    
+    bmi = weight / (height * height)
+    
+    sheet.cell(row=i, column=4).value = bmi
+
+    print(&#34;name:%s \tBMI: %f&#34; % (name, bmi))
+    
+#save the file
+workbook.save(&#34;bmi_update.xlsx&#34;)
+
+ </code></pre>
+<p><strong>excel_create.py</strong></p>
+<ul>
+<li>To write data (<em>usually in nested list structure</em>) into excel file</li>
+<li>Use the sheet.append(row) to add each row of data to the excel sheet</li>
+<li>Output of the code generated</li>
+</ul>
+<pre><code>import openpyxl
+
+workbook = openpyxl.Workbook()
+
+#get the default sheet
+sheet=workbook[&#34;Sheet&#34;]
+
+#create a list of tuples as data source
+data = [
+    [225.7,&#39;Gone with the Wind&#39;,&#39;Victor Fleming&#39;],
+    [194.4, &#39;Star Wars&#39;, &#39;George Lucas&#39;],
+    [161.0, &#39;ET: The Extraterrestrial&#39;, &#39;Steven Spielberg&#39;]
+]
+
+for row in data:
+    sheet.append(row)
+
+#save the spreadsheet
+workbook.save(&#34;movies.xlsx&#34;)
+
+
+ </code></pre>
+<p><strong>excel_format.py</strong></p>
+<ul>
+<li>To change the font, border style or color of the cells</li>
+</ul>
+<table>
+<tr><td colspan="1" rowspan="1"><p><strong>Input: </strong>data in bmi.xlsx</p>
+</td><td colspan="1" rowspan="1"><p><strong>Output: </strong>data in bmi_format.xlsx</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 222.00px" src="img\ea57345cb271d30.png"></p>
+</td><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 226.00px" src="img\8a0bfba67afe5d79.png"></p>
+</td></tr>
+</table>
+<pre><code>import openpyxl
+from openpyxl.styles import Font, PatternFill, Border, Side
+
+workbook = openpyxl.load_workbook(&#34;bmi.xlsx&#34;)
+sheet=workbook[&#34;Sheet1&#34;]
+
+#define the colors to use for styling
+BLUE = &#34;0033CC&#34;
+LIGHT_BLUE = &#34;E6ECFF&#34;
+WHITE = &#34;FFFFFF&#34;
+
+#define styling
+header_font = Font(name=&#34;Tahoma&#34;, size=14, color=WHITE)
+header_fill = PatternFill(&#34;solid&#34;, fgColor=BLUE)
+
+# format header
+for row in sheet[&#34;A1:c1&#34;]:
+  for cell in row:
+    cell.font = header_font
+    cell.fill = header_fill
+
+#define styling
+white_side = Side(border_style=&#34;thin&#34;, color=WHITE)
+blue_side = Side(border_style=&#34;thin&#34;, color=BLUE)
+alternate_fill = PatternFill(&#34;solid&#34;, fgColor=LIGHT_BLUE)
+border = Border(bottom=blue_side, left=white_side, right=white_side)
+
+# format rows
+for row_index, row in enumerate(sheet[&#34;A2:C3&#34;]):
+  for cell in row:
+    cell.border = border
+    if row_index %2 :
+      cell.fill = alternate_fill
+
+workbook.save(&#34;bmi_format.xlsx&#34;)
+ </code></pre>
+<p><strong>excel_chart.py</strong></p>
+<ul>
+<li>To create and insert a bar chart into excel sheet</li>
+<li>Plotting the chart for the height data</li>
+<li>Take note of the use of <strong>Reference()</strong> to specify the cell range for label and data.</li>
+</ul>
+<table>
+<tr><td colspan="1" rowspan="1"><p><strong>Output: </strong>bar chart inserted in bmi_chart.xlsx</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 587.00px" src="img\d790a4881d0b7809.png"></p>
+</td></tr>
+</table>
+<pre><code>import openpyxl
+from openpyxl.chart import BarChart, Reference, Series
+
+workbook = openpyxl.load_workbook(&#34;bmi.xlsx&#34;)
+sheet=workbook[&#34;Sheet1&#34;]
+
+
+chart = BarChart()
+
+# first column is used as label, starting from row 2
+labels = Reference(sheet, min_col=1, min_row=2, max_row=3)
+
+# first row is used for header, that is why min_row is 1
+data = Reference(sheet, min_col=3, min_row=1, max_row=3)
+
+chart.add_data(data, titles_from_data=True)
+chart.set_categories(labels)
+chart.title = &#34;Bar Chart&#34;
+chart.x_axis.title = &#34;Name&#34;
+chart.y_axis.title = &#34;Height&#34;
+
+
+sheet.add_chart(chart, &#39;E1&#39;)
+workbook.save(&#39;bmi_chart.xlsx&#39;)</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Image Processing" duration="0">
+        <aside class="special"><p>Library required: pillow</p>
+<ul>
+<li><strong>Installation</strong>: pip install pillow</li>
+<li><strong>Documentation</strong>: <a href="https://pillow.readthedocs.io/en/stable/handbook/overview.html" target="_blank">https://pillow.readthedocs.io/en/stable/handbook/overview.html</a></li>
+</ul>
+</aside>
+<p><strong>image_show_info.py</strong></p>
+<ul>
+<li>To open an image file</li>
+<li>To print the size and image mode of the image</li>
+</ul>
+<table>
+<tr><td colspan="1" rowspan="1"><p><strong>Output</strong>: Display in Wing IDE</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 405.50px" src="img\b11e90a23595074f.png"></p>
+</td></tr>
+</table>
+<pre><code>import os
+from PIL import Image
+
+filename = &#34;img/clungup.jpg&#34;
+
+im = Image.open(filename)
+print (&#34;%s - %s&#34; % (im.size, im.mode))
+
+# show the image
+im.show()
+
+# close the file
+im.close()
+</code></pre>
+<p><strong>image_blur_filter.py</strong></p>
+<ul>
+<li>To apply blur filter to the image</li>
+</ul>
+<table>
+<tr><td colspan="1" rowspan="1"><p><strong>Input: </strong>original image</p>
+</td><td colspan="1" rowspan="1"><p><strong>Output: </strong>image after applying the BLUR filter</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 286.00px" src="img\457c397126d89386.png"></p>
+</td><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 286.00px" src="img\6514099c169c2c4c.png"></p>
+</td></tr>
+</table>
+<pre><code>import os
+from PIL import Image, ImageFilter
+
+filename = &#34;img/clungup.jpg&#34;
+
+im = Image.open(filename)
+
+out = im.filter(ImageFilter.BLUR)
+
+im.show()
+out.show()
+</code></pre>
+<p><strong>image_other_filters.py</strong></p>
+<p>To apply other filters</p>
+<ul>
+<li>FIND_EDGE</li>
+<li>CONTOUR</li>
+</ul>
+<p>To apply image operation</p>
+<ul>
+<li>grayscale()</li>
+<li>solarize()</li>
+</ul>
+<table>
+<tr><td colspan="1" rowspan="1"><p>FIND_EDGE</p>
+<p class="image-container"><img style="width: 286.00px" src="img\df9549f836b312f4.png"></p>
+</td><td colspan="1" rowspan="1"><p>CONTOUR</p>
+<p class="image-container"><img style="width: 286.00px" src="img\c0f959cd504a165c.png"></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Grayscale</p>
+<p class="image-container"><img style="width: 286.00px" src="img\b6697636f32ca477.png"></p>
+</td><td colspan="1" rowspan="1"><p>Solarize</p>
+<p class="image-container"><img style="width: 286.00px" src="img\d2ad710165c54469.png"></p>
+</td></tr>
+</table>
+<pre><code>import os
+from PIL import Image, ImageFilter, ImageOps
+
+filename = &#34;img/clungup.jpg&#34;
+
+im = Image.open(filename)
+
+# Filter
+#out = im.filter(ImageFilter.BLUR)
+#out = im.filter(ImageFilter.FIND_EDGES)
+#out = im.filter(ImageFilter.CONTOUR)
+
+# ImageOps
+#out = ImageOps.grayscale(im)
+out = ImageOps.solarize(im)
+
+#im.show()
+out.show()
+</code></pre>
+<p><strong>image_rotate.py</strong></p>
+<p>To rotate image</p>
+<ul>
+<li>ROTATE_90, ROTATE_180, ROTATE_270</li>
+</ul>
+<p>To flip image</p>
+<ul>
+<li>FLIP_LEFT_RIGHT</li>
+<li>FLIP_TOP_BOTTOM</li>
+</ul>
+<table>
+<tr><td colspan="1" rowspan="1"><p>Original Image</p>
+<p class="image-container"><img style="width: 286.00px" src="img\6cce1e0763363a60.png"></p>
+</td><td colspan="1" rowspan="1"><p>ROTATE_180</p>
+<p class="image-container"><img style="width: 286.00px" src="img\708d5fc78ab9d93a.png"></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>ROTATE_90</p>
+<p class="image-container"><img style="width: 286.00px" src="img\5885191cabf64b75.png"></p>
+</td><td colspan="1" rowspan="1"><p>ROTATE_270</p>
+<p class="image-container"><img style="width: 286.00px" src="img\fca5a0766a6ab7e3.png"></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>FLIP_LEFT_RIGHT</p>
+<p class="image-container"><img style="width: 286.00px" src="img\7ccacf814e2d6166.png"></p>
+</td><td colspan="1" rowspan="1"><p>FLIP_TOP_BOTTOM</p>
+<p class="image-container"><img style="width: 286.00px" src="img\f2a8160cc8bfe94b.png"></p>
+</td></tr>
+</table>
+<pre><code>import os
+from PIL import Image, ImageFilter, ImageOps
+
+filename = &#34;img/clungup.jpg&#34;
+
+im = Image.open(filename)
+
+# ROTATING
+#out = im.transpose(Image.ROTATE_90)
+#out = im.transpose(Image.ROTATE_180)
+#out = im.transpose(Image.ROTATE_270)
+
+# FLIPPING
+#out = im.transpose(Image.FLIP_LEFT_RIGHT)
+out = im.transpose(Image.FLIP_TOP_BOTTOM)
+
+
+#im.show()
+out.show()
+
+
+</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Easter Eggs" duration="0">
+        <p>Printing Hello World</p>
+<pre><code>&gt;&gt;&gt; import __hello__
+Hello world!
+
+</code></pre>
+<p>Zen of Python</p>
+<pre><code>&gt;&gt;&gt; import this
+The Zen of Python, by Tim Peters
+Beautiful is better than ugly.
+Explicit is better than implicit.
+Simple is better than complex.
+Complex is better than complicated.
+Flat is better than nested.
+Sparse is better than dense.
+Readability counts.
+Special cases aren&#39;t special enough to break the rules.
+Although practicality beats purity.
+Errors should never pass silently.
+Unless explicitly silenced.
+In the face of ambiguity, refuse the temptation to guess.
+There should be one-- and preferably only one --obvious way to do it.
+Although that way may not be obvious at first unless you&#39;re Dutch.
+Now is better than never.
+Although never is often better than *right* now.
+If the implementation is hard to explain, it&#39;s a bad idea.
+If the implementation is easy to explain, it may be a good idea.
+Namespaces are one honking great idea -- let&#39;s do more of those!
+
+
+</code></pre>
+<p>Experience Antigravity</p>
+<pre><code>&gt;&gt;&gt; import antigravity
+</code></pre>
+<p class="image-container"><img style="width: 436.38px" src="img\198e37aee0df937e.png"></p>
+<p>Braces</p>
+<pre><code>from __future__ import braces
+  File &#34;&lt;input&gt;&#34;, line 1
+SyntaxError: not a chance
+
+</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Learning Resources" duration="0">
+        <h4 is-upgraded>Practice Website</h4>
+<table>
+<tr><td colspan="1" rowspan="1"><p>Description</p>
+</td><td colspan="1" rowspan="1"><p>URL</p>
+</td><td colspan="1" rowspan="1"><p>Remark</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Begin Python</p>
+</td><td colspan="1" rowspan="1"><p><a href="http://beginpython.com" target="_blank">http://beginpython.com</a> </p>
+</td><td colspan="1" rowspan="1"><p>To learn basic concept of programming</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Pyschools </p>
+</td><td colspan="1" rowspan="1"><p><a href="https://pyschools.com" target="_blank">https://pyschools.com</a> </p>
+</td><td colspan="1" rowspan="1"><p>Extension of begin python website, with more advanced topics</p>
+</td></tr>
+</table>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+
+</body>
+</html>

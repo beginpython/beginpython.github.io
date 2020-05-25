@@ -1,0 +1,27 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2020-05-25T04:22:56Z",
+  "id": "beginpython.github.io",
+  "duration": 0,
+  "title": "Python Resources",
+  "authors": "TAN KOK CHENG",
+  "summary": "Introduction Python Course",
+  "source": "1X2a-Ww3iVo_qzYqEcFXxAzpjhAkEzHVtZCCDbRuH9Fc",
+  "theme": "web",
+  "status": [
+    "published"
+  ],
+  "category": [
+    "Web"
+  ],
+  "tags": [
+    "kiosk",
+    "web"
+  ],
+  "feedback": "https://beginpython.github.io",
+  "ga": "UA-167450141-1",
+  "url": "beginpython.github.io"
+}
