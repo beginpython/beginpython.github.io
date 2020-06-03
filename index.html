@@ -28,7 +28,9 @@
                   feedback-link="https://beginpython.github.io">
     
       <google-codelab-step label="Introductory Programming using Python" duration="0">
-        
+        <p>This website contains the source code for the exercises used in day 2 of the <strong><em>Introductory Programming using Python</em></strong> course. </p>
+<p>Course material and other source code can be found at the following <a href="https://bit.ly/rp-jun20" target="_blank">link</a>.</p>
+
 
       </google-codelab-step>
     
@@ -488,6 +490,447 @@ out = im.transpose(Image.FLIP_TOP_BOTTOM)
 out.show()
 
 
+</code></pre>
+<p><strong>image_save.py</strong></p>
+<ul>
+<li>To save an image</li>
+</ul>
+<table>
+<tr><td colspan="1" rowspan="1"><p><strong>Output</strong>: </p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>You should find the following file: clungup.jpg in the <strong>out</strong> folder</p>
+</td></tr>
+</table>
+<pre><code>import os
+from PIL import Image, ImageFilter, ImageOps
+
+filename = &#34;clungup.jpg&#34;
+
+src_folder = &#34;img/&#34;
+out_folder = &#34;out/&#34;
+
+im = Image.open(src_folder + filename) # img/clungup.jpg
+out = im.filter(ImageFilter.BLUR)
+
+outFilename = out_folder + filename # out/clungup.jpg
+
+out.save(outFilename)
+</code></pre>
+<p><strong>image_convert_ext.py</strong></p>
+<ul>
+<li>To save an image in another file format</li>
+<li>In this case, to convert JPG format to GIF format</li>
+</ul>
+<table>
+<tr><td colspan="1" rowspan="1"><p><strong>Output</strong>: </p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>You should find the following file: clungup.gif in the <strong>out</strong> folder</p>
+</td></tr>
+</table>
+<pre><code>import os
+from PIL import Image, ImageFilter, ImageOps
+
+filename = &#34;clungup.jpg&#34;
+
+src_folder = &#34;img/&#34;
+out_folder = &#34;out/&#34;
+
+im = Image.open(src_folder + filename) # img/clungup.jpg
+out = im.filter(ImageFilter.BLUR)
+
+# split the filename and the extension
+f, e = os.path.splitext(filename)
+
+# add the gif extension to the filename
+fname2 = f + &#34;.gif&#34;
+
+outFilename = out_folder + fname2 # out/clungup.gif
+
+out.save(outFilename)</code></pre>
+<p><strong>image_watermark.py</strong></p>
+<ul>
+<li>To add watermark to an image</li>
+</ul>
+<table>
+<tr><td colspan="1" rowspan="1"><p><strong>Input: </strong>original image</p>
+</td><td colspan="1" rowspan="1"><p><strong>Output: </strong>image after applying watermark</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 286.00px" src="img\457c397126d89386.png"></p>
+</td><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 279.00px" src="img\f48f805b8336b976.png"></p>
+</td></tr>
+</table>
+<pre><code>from PIL import Image
+
+def watermark(im, mark, position):
+    layer = Image.new(&#34;RGBA&#34;, im.size, (0,0,0,0))
+    layer.paste(mark, position)
+    return Image.composite(layer, im, layer)
+
+im = Image.open(&#34;img\\clungup.jpg&#34;)
+mark = Image.open(&#34;img\\watermark.png&#34;)
+mark = mark.resize((100,100))
+mark.putalpha(128)
+
+out = watermark(im, mark, (0,0))
+out.show()</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Web Automation" duration="0">
+        <aside class="special"><p>Library required: requests</p>
+<ul>
+<li><strong>Installation</strong>: pip install requests</li>
+</ul>
+</aside>
+<p><strong>web_request.py</strong></p>
+<p>To download content given a url </p>
+<table>
+<tr><td colspan="1" rowspan="1"><p><strong>Output</strong>: chunk of text downloaded form the given url displayed in Wing IDE</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 587.00px" src="img\1ed68c32cbd73619.png"></p>
+</td></tr>
+</table>
+<pre><code>import requests
+
+url=&#34;https://api.data.gov.sg/v1/environment/2-hour-weather-forecast&#34;
+req=requests.get(url)
+print(req.text)
+</code></pre>
+<p><strong>web_json.py</strong></p>
+<ul>
+<li>To download content given a url </li>
+<li>Convert the downloaded data to JSON format</li>
+</ul>
+<table>
+<tr><td colspan="1" rowspan="1"><p><strong>Output</strong>: Downloaded data is converted to JSON, and information is extracted and presented as shown.</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 314.50px" src="img\3fb5e3ac9895dbb5.png"></p>
+</td></tr>
+</table>
+<pre><code>import json
+import requests
+
+url=&#34;https://api.data.gov.sg/v1/environment/2-hour-weather-forecast&#34;
+req=requests.get(url)
+
+data = json.loads(req.text)
+
+forecasts = data[&#34;items&#34;][0][&#34;forecasts&#34;]
+
+for forecast in forecasts:
+    area = forecast[&#34;area&#34;]
+    weather = forecast[&#34;forecast&#34;]
+    print(area + &#34;: &#34; + weather)
+</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Email" duration="0">
+        <p><strong>email_gmail.py</strong></p>
+<p>To send email using Gmail account, you need to ensure the following is done:</p>
+<ol type="1" start="1">
+<li>Port 587 is open </li>
+<li>Enable 2-step verification and create an App password under Google Account setting</li>
+</ol>
+<pre><code>import smtplib
+sender_email_address =&#34;&lt;YOUR EMAIL ADDRESS&gt;&#34;
+sender_email_password = &#34;&lt;YOUR APP PASSWORD&gt;&#34;
+receiver_email_address = &#34;&lt;SOME_EMAIL_ACCOUNT&gt;&#34;
+email_title_content = &#34;Subject: Sending Email Using Python\nThis is a test mail.&#34;
+
+print(&#34;Trying to connect o Gmail SMTP server&#34;)
+smtpObj = smtplib.SMTP(&#39;smtp.gmail.com&#39;, 587)
+smtpObj.starttls()
+
+print(&#34;Connected.  Logging in...&#34;)
+smtpObj.login(sender_email_address, sender_email_password)
+
+smtpObj.sendmail(sender_email_address, receiver_email_address, email_title_content)
+print(&#34;Email sent successfully...&#34;)
+
+smtpObj.quit()
+
+
+</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Visualisation and Charting" duration="0">
+        <aside class="special"><p>Library required: matplotlib</p>
+<ul>
+<li><strong>Installation</strong>: pip install matplotlib</li>
+<li><strong>Documentation</strong>: <a href="https://matplotlib.org/users/index.html" target="_blank">https://matplotlib.org/users/index.html</a>  </li>
+</ul>
+</aside>
+<p><strong>chart_bar.py</strong></p>
+<p>To create simple barchart</p>
+<table>
+<tr><td colspan="1" rowspan="1"><p><strong>Output</strong>: Barchart</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 401.50px" src="img\ac91c78262300ac1.png"></p>
+</td></tr>
+</table>
+<pre><code>import matplotlib.pyplot as plt
+
+#set up values
+VALUES = [100,150,125,170]
+POS = [0,1,2,3]
+LABELS = [&#39;Q1 2018&#39;,&#39;Q2 2018&#39;,&#39;Q3 2018&#39;,&#39;Q4 2018&#39;]
+
+#set up the chart
+plt.bar(POS,VALUES)
+plt.xticks(POS, LABELS)
+plt.ylabel(&#39;Sales&#39;)
+
+#to display the chart
+plt.show()
+</code></pre>
+<p><strong>chart_bar_format.py</strong></p>
+<p>To add formatting to barchart</p>
+<ul>
+<li>Add $ to label</li>
+<li>Chart color of the barchart</li>
+</ul>
+<table>
+<tr><td colspan="1" rowspan="1"><p><strong>Output</strong>: Barchart with formatting applied</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 446.50px" src="img\aec75e1f939384f0.png"></p>
+</td></tr>
+</table>
+<pre><code>import matplotlib.pyplot as plt
+from matplotlib.ticker import FuncFormatter
+
+def value_format(value, position):
+        return &#39;$ {}M&#39;.format(int(value))
+
+# set up values
+VALUES = [100,150,125,170]
+POS = [0,1,2,3]
+LABELS = [&#39;Q1 2018&#39;,&#39;Q2 2018&#39;,&#39;Q3 2018&#39;,&#39;Q4 2018&#39;]
+
+# set up the chart
+# Colors can be specified in multiple formats, as 
+# described in https://matplotlib.org/api/colors_api.html
+# https://xkcd.com/color/rgb/
+plt.bar(POS,VALUES, color=&#39;xkcd:moss green&#39;)
+plt.xticks(POS, LABELS)
+plt.ylabel(&#39;Sales&#39;)
+
+# retreive the current axes and apply formatter 
+axes = plt.gca()
+axes.yaxis.set_major_formatter(FuncFormatter(value_format))
+
+# to display the chart
+plt.show()
+
+
+</code></pre>
+<p><strong>chart_subplots.py</strong></p>
+<p>To add multiple charts to the same plot.</p>
+<table>
+<tr><td colspan="1" rowspan="1"><p><strong>Output</strong>: </p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 517.50px" src="img\1f03dcc3707d46d1.png"></p>
+</td></tr>
+</table>
+<pre><code>import matplotlib.pyplot as plt
+
+#set up values
+VALUESA = [100,150,125,170]
+VALUESB = [0,15,40,80]
+VALUESC = [3,5,7,3]
+POS = [0,1,2,3]
+LABELS = [&#39;Q1 2018&#39;,&#39;Q2 2018&#39;,&#39;Q3 2018&#39;,&#39;Q4 2018&#39;]
+
+# Create the first plot
+plt.subplot(2,1,1)
+
+#creata a bar graph with informaton about VALUESA
+plt.bar(POS,VALUESA)
+plt.ylabel(&#39;Sales&#39;)
+
+#create a different Y axis, and add information 
+#about VALUESB as a line plot
+plt.twinx()
+plt.plot(POS,VALUESB,&#39;o-&#39;,color=&#39;red&#39;)
+plt.xticks(POS, LABELS)
+plt.ylabel(&#39;Sales B&#39;)
+plt.xticks(POS, LABELS)
+
+#create another subplot and fill it iwth VALUESC
+plt.subplot(2,1,2)
+plt.plot(POS, VALUESC)
+plt.gca().set_ylim(bottom=0)
+plt.xticks(POS,LABELS)
+
+plt.savefig(&#39;foo.png&#39;)
+
+plt.show()</code></pre>
+<p><strong>chart_scatter.py</strong></p>
+<p>To create scatter chart</p>
+<table>
+<tr><td colspan="1" rowspan="1"><p><strong>Output</strong>: </p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 480.50px" src="img\3eaea94705185e4f.png"></p>
+</td></tr>
+</table>
+<pre><code>import csv
+import matplotlib.pyplot as plt
+from matplotlib.ticker import FuncFormatter
+
+def format_minutes(value, pos):
+        return &#39;{}m&#39;.format(int(value))
+
+def format_dollars(value, pos):
+        return &#39;${}&#39;.format(value)
+
+# read data from csv
+fp = open(&#34;scatter.csv&#34;,&#34;r&#34;, newline=&#39;&#39;)
+reader = csv.reader(fp)
+data = list(reader)
+
+data_x=[]
+data_y=[]
+for x, y in data:
+        data_x.append(float(x))
+        data_y.append(float(y))
+        
+plt.scatter(data_x, data_y)
+
+plt.gca().xaxis.set_major_formatter(FuncFormatter(format_minutes))
+plt.xlabel(&#39;Time in website&#39;)
+plt.gca().yaxis.set_major_formatter(FuncFormatter(format_dollars))
+plt.ylabel(&#39;Spending&#39;)
+
+plt.show()</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="PDF" duration="0">
+        <aside class="special"><p>Library required: fpdf</p>
+<ul>
+<li><strong>Installation</strong>: pip install pfdf</li>
+<li><strong>Documentation</strong>: <a href="https://pyfpdf.readthedocs.io/en/latest/Tutorial/index.html" target="_blank">https://pyfpdf.readthedocs.io/en/latest/Tutorial/index.html</a> </li>
+</ul>
+</aside>
+<p><strong>pdf_text.py</strong></p>
+<p>To create pdf file</p>
+<ul>
+<li>Use <a href="https://pyfpdf.readthedocs.io/en/latest/reference/cell/index.html" target="_blank"><strong><em>cell()</em></strong></a> function to create text</li>
+<li>Use <strong><em>ln()</em></strong> function to go to next line</li>
+</ul>
+<table>
+<tr><td colspan="1" rowspan="1"><p><strong>Output</strong>: Generated PDF file with text</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 362.00px" src="img\1dbffb0b5f4ffc5c.png"></p>
+</td></tr>
+</table>
+<pre><code>import fpdf
+
+#create a new pdf
+document = fpdf.FPDF()
+
+#define font and color for title and add the first page
+document.set_font(&#34;Times&#34;,&#34;B&#34;, 14)
+document.set_text_color(19,83,173)
+document.add_page()
+
+#write the title of the document
+document.cell(0,5,&#34;PDF Test Document&#34;)
+document.ln()
+
+#write a long paragraph
+document.set_font(&#34;Times&#34;, &#34;&#34;, 11)
+document.set_text_color(0)
+document.multi_cell(0,10, &#34;This is an example of a long paragraph. \n&#34; * 10)
+document.ln()
+
+#save the document
+document.output(&#34;pdf_text.pdf&#34;)</code></pre>
+<p><strong>pdf_image.py</strong></p>
+<p>To create pdf file</p>
+<ul>
+<li>Use <a href="https://pyfpdf.readthedocs.io/en/latest/reference/image/index.html" target="_blank"><strong><em>image()</em></strong></a> function to add image</li>
+</ul>
+<table>
+<tr><td colspan="1" rowspan="1"><p><strong>Output</strong>: Generated PDF file with image</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 587.00px" src="img\fe07ed5423605726.png"></p>
+</td></tr>
+</table>
+<pre><code>import fpdf
+
+#create a new pdf
+document = fpdf.FPDF()
+
+#define font and color for title and add the first page
+document.set_font(&#34;Times&#34;,&#34;B&#34;, 14)
+document.set_text_color(19,83,173)
+document.add_page()
+
+#add a image
+document.image(&#34;logo.png&#34;, x=10, y=5, w=23)
+
+document.set_y(40); 
+
+#write the title of the document
+document.cell(0,5,&#34;PDF Test Document&#34;)
+document.ln()
+
+#write a long paragraph
+document.set_font(&#34;Times&#34;, &#34;&#34;, 11)
+document.set_text_color(0)
+document.multi_cell(0,5, &#34;This is an example of a long paragraph. &#34; * 10)
+document.ln()
+
+#save the document
+document.output(&#34;pdf_image.pdf&#34;)
+</code></pre>
+<p><strong>pdf_password.py</strong></p>
+<aside class="special"><p>Library required: pyfdf2</p>
+<ul>
+<li><strong>Installation</strong>: pip install pyfdf2</li>
+<li><strong>Documentation</strong>: <a href="https://pythonhosted.org/PyPDF2/" target="_blank">https://pythonhosted.org/PyPDF2/</a> </li>
+</ul>
+</aside>
+<p>To add password to pdf file</p>
+<ul>
+<li>Just need to copy and paste the code given to add password to the pdf file. </li>
+</ul>
+<pre><code>import fpdf
+import PyPDF2
+
+#create a new pdf
+document = fpdf.FPDF()
+
+#define font and color for title and add the first page
+document.set_font(&#34;Times&#34;,&#34;B&#34;, 14)
+document.set_text_color(19,83,173)
+document.add_page()
+
+#write the title of the document
+document.cell(0,5,&#34;PDF Test Document&#34;)
+document.ln()
+
+#save the document
+document.output(&#34;pdf_report_before_pw.pdf&#34;)
+
+#save the document into a new password protected/encrypted pdf
+pdffile = open(r&#34;pdf_report_before_pw.pdf&#34;, &#34;rb&#34;)
+pdfReader = PyPDF2.PdfFileReader(pdffile)
+pdfWriter = PyPDF2.PdfFileWriter()
+for pageNum in range(pdfReader.numPages):
+    pdfWriter.addPage(pdfReader.getPage(pageNum))
+
+pdfWriter.encrypt(&#39;123&#39;)
+resultPDF = open(r&#34;pdf_report_after_pw.pdf&#34;, &#34;wb&#34;)
+pdfWriter.write(resultPDF)
+resultPDF.close()
+pdffile.close()
 </code></pre>
 
 
